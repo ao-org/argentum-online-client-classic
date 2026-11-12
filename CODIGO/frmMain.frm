@@ -3320,15 +3320,6 @@ SetCoordColor_Err:
     Resume Next
 End Sub
 
-Private Sub onlines_Click()
-    On Error GoTo onlines_Click_Err
-    Call WriteOnline
-    Exit Sub
-onlines_Click_Err:
-    Call RegistrarError(Err.Number, Err.Description, "frmMain.onlines_Click", Erl)
-    Resume Next
-End Sub
-
 Private Sub OpcionesBoton_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
     On Error GoTo OpcionesBoton_MouseMove_Err
     If OpcionesBoton.Tag = "0" Then

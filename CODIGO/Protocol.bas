@@ -4785,13 +4785,16 @@ errhandler:
 End Sub
 
 Private Sub HandleUserOnline()
-    On Error GoTo errhandler
-    Dim rdata As Integer
-    rdata = Reader.ReadInt16()
-    usersOnline = rdata
-    frmMain.onlines = "Online: " & usersOnline
+    On Error GoTo HandleUserOnline_Err
+
+    Dim onlineCount As Integer
+    onlineCount = reader.ReadInt16()
+
+    usersOnline = onlineCount
+    frmMain.onlines.Caption = JsonLanguage.Item("CAPTION_USERS_ONLINE") & " " & usersOnline
     Exit Sub
-errhandler:
+
+HandleUserOnline_Err:
     Call RegistrarError(Err.Number, Err.Description, "Protocol.HandleUserOnline", Erl)
 End Sub
 
@@ -5717,26 +5720,19 @@ errhandler:
 End Sub
 
 Public Sub HandlePrivilegios()
-    On Error GoTo errhandler
-    EsGM = Reader.ReadBool
-    If EsGM Then
-        frmMain.panelGM.visible = True
-        frmMain.createObj.visible = True
-        frmMain.btnInvisible.visible = True
-        frmMain.btnSpawn.visible = True
-    Else
-        frmMain.panelGM.visible = False
-        frmMain.createObj.visible = False
-        frmMain.btnInvisible.visible = False
-        frmMain.btnSpawn.visible = False
-    End If
-    If EsGM And charlist(UserCharIndex).priv <> 2 Then
-        frmMain.onlines.visible = True
-    Else
-        frmMain.onlines.visible = False
-    End If
+    On Error GoTo HandlePrivilegios_Err
+
+    EsGM = reader.readBool()
+
+    frmMain.panelGM.visible = EsGM
+    frmMain.createObj.visible = EsGM
+    frmMain.btnInvisible.visible = EsGM
+    frmMain.btnSpawn.visible = EsGM
+
+    frmMain.onlines.visible = True
     Exit Sub
-errhandler:
+
+HandlePrivilegios_Err:
     Call RegistrarError(Err.Number, Err.Description, "Protocol.HandlePrivilegios", Erl)
 End Sub
 
