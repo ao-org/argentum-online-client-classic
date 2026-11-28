@@ -89,6 +89,9 @@ Public Enum e_NpcInfoMask
     Paralized = 64
     Inmovilized = 128
     Fighting = 256
+    Bruised = 512
+    BadlyWounded = 1024
+    Dying = 2048
 End Enum
 
 Public Enum e_CDTypeMask
